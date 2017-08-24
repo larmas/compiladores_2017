@@ -2,11 +2,11 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "node.c"
 
+#include "treeN.c"
 %}
 
-%union { int i; char *s; }
+%union { int i; char *s; Node *p; }
 
 %token<i> INT
 %token<s> ID
