@@ -41,3 +41,17 @@ void preorden(Node *raiz){
 	preorden(raiz->left);
 	preorden(raiz->right);
 }
+/*int main(int argc, char const *argv[]) {
+  Node *root;
+  Node *left;
+  Node *right;
+
+  root = newNode(0,"pepe",10);
+  left = newNode(0,"jose",20);
+  right = newNode(0,"juan",30);
+
+  insertTree(root,left,right);
+  preorden(root);
+
+  return 0;
+}*/

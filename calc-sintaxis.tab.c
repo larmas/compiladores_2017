@@ -68,7 +68,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "treeN.c"
+
 
 #line 74 "calc-sintaxis.tab.c" /* yacc.c:339  */
 
@@ -117,7 +117,7 @@ extern int yydebug;
 union YYSTYPE
 {
 #line 9 "calc-sintaxis.y" /* yacc.c:355  */
- int i; char *s; Node *p; 
+ int i; char *s; 
 
 #line 123 "calc-sintaxis.tab.c" /* yacc.c:355  */
 };

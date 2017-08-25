@@ -3,10 +3,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "treeN.c"
+
 %}
 
-%union { int i; char *s; Node *p; }
+%union { int i; char *s; }
 
 %token<i> INT
 %token<s> ID

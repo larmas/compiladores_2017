@@ -57,7 +57,7 @@ extern int yydebug;
 union YYSTYPE
 {
 #line 9 "calc-sintaxis.y" /* yacc.c:1915  */
- int i; char *s; Node *p; 
+ int i; char *s; 
 
 #line 63 "calc-sintaxis.tab.h" /* yacc.c:1915  */
 };
