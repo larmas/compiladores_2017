@@ -3,7 +3,7 @@
 #include <ctype.h>
 
 typedef struct node{
-  int tag;
+  int tag; //0=variable 1=int 2=operador
   char id[20];
   int value;
   struct node *left, *right;
@@ -12,7 +12,7 @@ typedef struct node{
 
 /*PROTOTIPOS*/
 Node *newNode(int xTag, char xId[], int xValue);
-void insert(Node *raiz, Node *leafL, Node *leafR);
+void insertTree(Node *raiz, Node *leafL, Node *leafR);
 void preorden(Node *raiz);
 
 
