@@ -6,7 +6,8 @@ typedef struct node{
   int tag; //0=variable 1=int 2=operador
   char id[20];
   int value;
-  struct node *left, *right;
+  struct node *left;
+  struct node *right;
 }Node;
 
 
@@ -21,11 +22,14 @@ Node *newNode(int xTag, char xId[], int xValue){
   new = (Node *) malloc(sizeof(Node));
 
   new->tag = xTag;
-
-  for (int i = 0; i < sizeof(new->id); i++) {
-    new->id[i] = xId[i];
-  }
-  new->value = xValue;
+  if(xId!=NULL)
+    for (int i = 0; i < sizeof(new->id); i++) {
+      new->id[i] = xId[i];
+    }
+  if(xValue!=NULL)
+    new->value = xValue;
+  else
+    new->value = NULL;
   return new;
 }
 
@@ -36,8 +40,10 @@ void insertTree(Node *root, Node *leafL, Node *leafR){
 
 void preorden(Node *raiz){
 	if( !raiz ) return;
-
-	printf( "%i\n ", raiz->value );
+  if(raiz->value!=NULL)
+	  printf( "%i ", raiz->value );
+  else
+    printf("%s", raiz->id);
 	preorden(raiz->left);
 	preorden(raiz->right);
 }

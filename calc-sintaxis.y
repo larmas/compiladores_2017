@@ -2,13 +2,12 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "treeN.c"
 #include "list.c"
 
 List *list;
 %}
 
-%union { int i; char *s; Node *treeN; }
+%union { int i; char *s; struct Node *treeN; }
 
 
 %token<i> INT
@@ -22,19 +21,28 @@ List *list;
 
 %%
 
-prog: expr ';'          { printf("%s%d\n", "Resultado: ",$1);
+prog: expr ';'          { //printf("%s%d\n", "Resultado: ",$1);
+                          printf("%s\n", "Recorrido....");
                           preorden($1);
                         }
 
-    | variable ';' expr ';'
+    | variable ';' expr ';' { printf("%s\n","Lista");
+                              showList(list);
+                              printf("%s\n", "Recorrido....");
+                              preorden($3);
+                            }
     ;
 
 expr: INT               {
                           Node *new = newNode(1,NULL,$1);
                           $$ = new;
-                          printf("%s%d\n","Constante entera:",$1);
+                          //printf("%s%d\n","Constante entera:",$1);
                         }
-    | ID                {$$ = findElem(list, $1)}
+    | ID                {
+                          Node *new = findElem(list, $1);
+                          printf("Buscado: %s\n", new->id);
+                          $$ = new;
+                        }
 
     | expr '+' expr     {
                           Node *new = newNode(2,"+",NULL);
@@ -53,7 +61,7 @@ expr: INT               {
 
 variable: VAR ID '=' INT {
                             Node *dato = newNode(0,$2,$4);
-                            newList(list,dato);
+                            list = newList(list,dato);
                           }
 
         | variable ';' VAR ID '=' INT {

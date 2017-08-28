@@ -128,7 +128,7 @@ void showList(List *l) {
   }
 }
 
-  int main(int argc, char const *argv[]) {
+  /*int main(int argc, char const *argv[]) {
   Node *root;
   Node *left;
   Node *right;
@@ -140,7 +140,7 @@ void showList(List *l) {
   //insertTree(root,left,right);
   //preorden(root);
 
-  /* Prueba lista */
+
 
   List *test;
   test = newList(test,root);
@@ -150,9 +150,9 @@ void showList(List *l) {
   find = findElem(test, "pepe32");
   //printf("%s\n", find->id );
   showList(test);
-  /*deleteElem(test,"pepe");
-  showList(test);*/
+  deleteElem(test,"pepe");
+  showList(test);
   int length = longList(test);
   printf("%i\n", length);
   return 0;
-}
+}*/
