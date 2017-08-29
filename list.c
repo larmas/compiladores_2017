@@ -10,14 +10,15 @@ typedef struct list {
 
 List *newList(List *l, Node *p);
 void insertLast(List *l, Node *dato);
-void insertFirst(List *l, Node *dato);
-Node *findElem(List *p, char _id[]);
-List *deleteList(List *l);
+void insertFirst(List **l, Node *dato);
+Node *findElem(List *l, char _id[]);
+void deleteList(List **l);
 void showList(List *l);
 int longList(List *l);
-int deleteElem(List *p, char _id[]);
+int deleteElem(List *l, char _id[]);
 
 
+// Inicializa la lista con un nodo
 List *newList(List *l, Node *p) {
   l = (List *) malloc(sizeof(List));
   l->node = p;
@@ -26,7 +27,7 @@ List *newList(List *l, Node *p) {
 }
 
 
-// Inserta dato al final de la lista
+// Inserta el dato al final de la lista
 void insertLast(List *l, Node *dato) {
   List *p,*q;
   q = (List *) malloc(sizeof(List)); // crea un nuevo nodo
@@ -42,50 +43,48 @@ void insertLast(List *l, Node *dato) {
 }
 
 
-// Inserta dato al comienzo de la lista
-void insertFirst(List *l, Node *dato) {
-  List *p,*q;
+// Inserta el dato al comienzo de la lista
+void insertFirst(List **l, Node *dato) {
+  List *q;
   q = (List *) malloc(sizeof(List)); // crea un nuevo nodo
   q->node = dato; // copiar los datos
-  q->next = l;
-  l = q;
+  q->next = *l;
+  *l = q;
 }
 
 
 // Retorna el elemento si fue en contrado en la lista (busca por id)
-Node *findElem(List *p, char _id[]) {
+Node *findElem(List *l, char _id[]) {
   int cond;
-  if (p == NULL){ // no hay nada que borrar
+  if (l == NULL){ // no hay nada que borrar
     return NULL;
   }
-  cond = strcmp(p->node->id,_id); // compara el dato
+  cond = strcmp(l->node->id,_id); // compara el dato
   if (cond == 0) { // encontrado!
-    printf("%s\n", "------");
-  	return (p->node);
+  	return (l->node);
   } else{ // no encontrado
 
-    return ( findElem(p->next,_id) ); // avanzo
+    return ( findElem(l->next,_id) ); // avanzo
   }
   return NULL;
 }
 
 
-// Elimina el elemento si se encuentra en la lista
-int deleteElem(List *p, char _id[]) {
+// Elimina el elemento si se encuentra en la lista (NO FUNCIONA)
+int deleteElem(List *l, char _id[]) {
   int cond;
-  if (p == NULL) // no hay nada que borrar
+  if (l == NULL) // no hay nada que borrar
     return -1;
 
-  cond = strcmp(p->node->id,_id);
+  cond = strcmp(l->node->id,_id);
   if (cond == 0) { // encontrado!
-    printf("%s\n", "-----");
     List *q;
-    q = p->next;
-    free(p); // libera la memoria y hemos perdido el enlace, por eso se guarda en q
-    p = q; // restaurar p al nuevo valor
+    q = l->next;
+    free(l); // libera la memoria y hemos perdido el enlace, por eso se guarda en q
+    l = q; // restaurar p al nuevo valor
     return 0;
   } else // no encontrado
-    deleteElem(p->next,_id); // avanzo
+    deleteElem(l->next,_id); // avanzo
   return -1;
 }
 
@@ -104,15 +103,14 @@ int longList(List *l) {
 }
 
 
-// anula una lista liberando la memoria
-List *deleteList(List *l) {
+// Anula una lista liberando la memoria
+void deleteList(List **l) {
   List *q;
-  while (l != NULL) {
-    q = l->next; // para no perder el nodo
-    free(l);
-    l = q;
+  while (*l != NULL) {
+    q = (*l)->next; 
+    free(*l);
+    *l = q;
   }
-  return NULL;
 }
 
 
@@ -128,31 +126,39 @@ void showList(List *l) {
   }
 }
 
-  /*int main(int argc, char const *argv[]) {
+  int main(int argc, char const *argv[]) {
   Node *root;
   Node *left;
   Node *right;
-
+  Node *aux;
+  Node *aux2;
+  if(root != NULL){printf("%s\n","-----xx----");}
   root = newNode(0,"pepe",10);
   left = newNode(0,"jose",20);
   right = newNode(0,"juan",30);
-
+  aux = newNode(0,"lucas",40);
+  aux2 = newNode(0,"fer",48);
   //insertTree(root,left,right);
   //preorden(root);
 
-
+  /* Prueba lista */
 
   List *test;
   test = newList(test,root);
   insertLast(test,left);
   insertLast(test,right);
-  Node *find;
-  find = findElem(test, "pepe32");
-  //printf("%s\n", find->id );
+  insertFirst(&test,aux);
+  insertFirst(&test,aux2);
+  //deleteList(&test);
   showList(test);
-  deleteElem(test,"pepe");
-  showList(test);
-  int length = longList(test);
-  printf("%i\n", length);
+  //Node *find;
+  //find = findElem(test, "pepe");
+  //printf("%s\n","---------");
+  //printf("Elem.Buscado: %s\n",find->id);
+
+  /*deleteElem(test,"pepe");
+  showList(test);*/
+  //int length = longList(test);
+  //printf("%i\n", length);
   return 0;
-}*/
+}
