@@ -1220,7 +1220,7 @@ yyreduce:
 #line 24 "calc-sintaxis.y" /* yacc.c:1661  */
     { //printf("%s%d\n", "Resultado: ",$1);
                           printf("%s\n", "Recorrido....");
-                          preorden((yyvsp[-1].treeN));
+                          dfs((yyvsp[-1].treeN));
                         }
 #line 1226 "calc-sintaxis.tab.c" /* yacc.c:1661  */
     break;
@@ -1230,7 +1230,7 @@ yyreduce:
     { printf("%s\n","Lista");
                               showList(list);
                               printf("%s\n", "Recorrido....");
-                              preorden((yyvsp[-1].treeN));
+                              dfs((yyvsp[-1].treeN));
                             }
 #line 1236 "calc-sintaxis.tab.c" /* yacc.c:1661  */
     break;

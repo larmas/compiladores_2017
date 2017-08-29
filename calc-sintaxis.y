@@ -23,13 +23,13 @@ List *list;
 
 prog: expr ';'          { //printf("%s%d\n", "Resultado: ",$1);
                           printf("%s\n", "Recorrido....");
-                          preorden($1);
+                          dfs($1);
                         }
 
     | variable ';' expr ';' { printf("%s\n","Lista");
                               showList(list);
                               printf("%s\n", "Recorrido....");
-                              preorden($3);
+                              dfs($3);
                             }
     ;
 

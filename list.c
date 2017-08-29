@@ -108,7 +108,7 @@ int longList(List *l) {
 void deleteList(List **l) {
   List *q;
   while (*l != NULL) {
-    q = (*l)->next; 
+    q = (*l)->next;
     free(*l);
     *l = q;
   }
@@ -127,7 +127,7 @@ void showList(List *l) {
   }
 }
 
-  int main(int argc, char const *argv[]) {
+  /*int main(int argc, char const *argv[]) {
   Node *root;
   Node *left;
   Node *right;
@@ -140,11 +140,11 @@ void showList(List *l) {
   aux = newNode(0,"lucas",40);
   aux2 = newNode(0,"fer",48);
   //insertTree(root,left,right);
-  //preorden(root);
+  //preorden(root);*/
 
   /* Prueba lista */
 
-  List *test;
+  /*List *test;
   test = newList(test,root);
   insertLast(test,left);
   insertLast(test,right);
@@ -162,4 +162,4 @@ void showList(List *l) {
   //int length = longList(test);
   //printf("%i\n", length);
   return 0;
-}
+}*/
