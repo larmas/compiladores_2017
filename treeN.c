@@ -52,6 +52,19 @@ void preorden(Node *raiz){
 	preorden(raiz->right);
 }
 
+
+/*
+publicvoid dfs(Vertex v){
+  process(v);
+  mark(v);
+  for all vertex w adjacent to v not marked do{
+    dfs(w);
+  }
+}
+*/
+
+
+
 /*int main(int argc, char const *argv[]) {
   Node *root;
   Node *left;

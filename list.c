@@ -8,6 +8,7 @@ typedef struct list {
   struct list *next;
 }List;
 
+/*PROTOTIPOS*/
 List *newList(List *l, Node *p);
 void insertLast(List *l, Node *dato);
 void insertFirst(List **l, Node *dato);
@@ -15,7 +16,7 @@ Node *findElem(List *l, char _id[]);
 void deleteList(List **l);
 void showList(List *l);
 int longList(List *l);
-int deleteElem(List *l, char _id[]);
+List *deleteElem(List *l, char _id[]);
 
 
 // Inicializa la lista con un nodo
@@ -70,11 +71,11 @@ Node *findElem(List *l, char _id[]) {
 }
 
 
-// Elimina el elemento si se encuentra en la lista (NO FUNCIONA)
-int deleteElem(List *l, char _id[]) {
+// Elimina el elemento si se encuentra en la lista
+List *deleteElem(List *l, char _id[]) {
   int cond;
   if (l == NULL) // no hay nada que borrar
-    return -1;
+    return l;
 
   cond = strcmp(l->node->id,_id);
   if (cond == 0) { // encontrado!
@@ -82,10 +83,10 @@ int deleteElem(List *l, char _id[]) {
     q = l->next;
     free(l); // libera la memoria y hemos perdido el enlace, por eso se guarda en q
     l = q; // restaurar p al nuevo valor
-    return 0;
+    return l;
   } else // no encontrado
-    deleteElem(l->next,_id); // avanzo
-  return -1;
+    l->next = deleteElem(l->next,_id); // avanzo
+  return l;
 }
 
 
@@ -132,7 +133,7 @@ void showList(List *l) {
   Node *right;
   Node *aux;
   Node *aux2;
-  if(root != NULL){printf("%s\n","-----xx----");}
+
   root = newNode(0,"pepe",10);
   left = newNode(0,"jose",20);
   right = newNode(0,"juan",30);
@@ -153,11 +154,11 @@ void showList(List *l) {
   showList(test);
   //Node *find;
   //find = findElem(test, "pepe");
-  //printf("%s\n","---------");
+  printf("%s\n","---------");
   //printf("Elem.Buscado: %s\n",find->id);
 
-  /*deleteElem(test,"pepe");
-  showList(test);*/
+  test = deleteElem(test,"fer");
+  showList(test);
   //int length = longList(test);
   //printf("%i\n", length);
   return 0;
