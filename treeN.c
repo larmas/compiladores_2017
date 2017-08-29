@@ -17,7 +17,7 @@ Node *newNode(int xTag, char xId[], int xValue);
 void insertTree(Node *raiz, Node *leafL, Node *leafR);
 void preorden(Node *raiz);
 void mark(Node *node);
-void dfs(Node *node);
+int dfs(Node *node);
 
 
 // Crea un nuevo nodo con toda la informacion pasada
@@ -60,7 +60,7 @@ void mark(Node *node){
     node->mark = -1;
 }
 
-void dfs(Node *root){
+int dfs(Node *root){
     if(root->value!=NULL)
   	  printf( "%i ", root->value );
     else
@@ -75,8 +75,6 @@ void dfs(Node *root){
         }
     }
 }
-
-
 
 /*int main(int argc, char const *argv[]) {
 

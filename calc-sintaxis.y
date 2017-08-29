@@ -21,15 +21,22 @@ List *list;
 
 %%
 
-prog: expr ';'          { //printf("%s%d\n", "Resultado: ",$1);
+prog: expr ';'          {
                           printf("%s\n", "Recorrido....");
                           dfs($1);
+                          printf("\n");
+                          printf("%s\n\n", "Evaluar....");
+                          int result = valueExpr($1);
+                          printf("%i\n", result);
                         }
 
-    | variable ';' expr ';' { printf("%s\n","Lista");
-                              showList(list);
+    | variable ';' expr ';' {
                               printf("%s\n", "Recorrido....");
                               dfs($3);
+                              printf("\n");
+                              printf("%s\n", "Evaluar....");
+                              int result = valueExpr($3);
+                              printf("%i\n", result);
                             }
     ;
 
@@ -72,3 +79,21 @@ variable: VAR ID '=' INT {
    ;
 
 %%
+int valueExpr(Node *root){
+    if(root->tag == 1){
+        return root->value;
+    }
+    if(root->tag == 2){
+        int cond1 = strcmp(root->id,"+");
+        if(cond1 == 0){
+            return valueExpr(root->left) + valueExpr(root->right);
+        }
+        int cond2 = strcmp(root->id,"*");
+        if(cond2 == 0){
+            return valueExpr(root->left) * valueExpr(root->right);
+        }
+    }
+    if(root->tag == 0){
+        return root->value;
+    }
+}

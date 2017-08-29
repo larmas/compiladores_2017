@@ -435,8 +435,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    24,    24,    29,    36,    41,    47,    53,    59,    62,
-      67
+       0,    24,    24,    33,    43,    48,    54,    60,    66,    69,
+      74
 };
 #endif
 
@@ -1218,91 +1218,98 @@ yyreduce:
     {
         case 2:
 #line 24 "calc-sintaxis.y" /* yacc.c:1661  */
-    { //printf("%s%d\n", "Resultado: ",$1);
+    {
                           printf("%s\n", "Recorrido....");
                           dfs((yyvsp[-1].treeN));
+                          printf("\n");
+                          printf("%s\n\n", "Evaluar....");
+                          int result = valueExpr((yyvsp[-1].treeN));
+                          printf("%i\n", result);
                         }
-#line 1226 "calc-sintaxis.tab.c" /* yacc.c:1661  */
+#line 1230 "calc-sintaxis.tab.c" /* yacc.c:1661  */
     break;
 
   case 3:
-#line 29 "calc-sintaxis.y" /* yacc.c:1661  */
-    { printf("%s\n","Lista");
-                              showList(list);
+#line 33 "calc-sintaxis.y" /* yacc.c:1661  */
+    {
                               printf("%s\n", "Recorrido....");
                               dfs((yyvsp[-1].treeN));
+                              printf("\n");
+                              printf("%s\n", "Evaluar....");
+                              int result = valueExpr((yyvsp[-1].treeN));
+                              printf("%i\n", result);
                             }
-#line 1236 "calc-sintaxis.tab.c" /* yacc.c:1661  */
+#line 1243 "calc-sintaxis.tab.c" /* yacc.c:1661  */
     break;
 
   case 4:
-#line 36 "calc-sintaxis.y" /* yacc.c:1661  */
+#line 43 "calc-sintaxis.y" /* yacc.c:1661  */
     {
                           Node *new = newNode(1,NULL,(yyvsp[0].i));
                           (yyval.treeN) = new;
                           //printf("%s%d\n","Constante entera:",$1);
                         }
-#line 1246 "calc-sintaxis.tab.c" /* yacc.c:1661  */
+#line 1253 "calc-sintaxis.tab.c" /* yacc.c:1661  */
     break;
 
   case 5:
-#line 41 "calc-sintaxis.y" /* yacc.c:1661  */
+#line 48 "calc-sintaxis.y" /* yacc.c:1661  */
     {
                           Node *new = findElem(list, (yyvsp[0].s));
                           printf("Buscado: %s\n", new->id);
                           (yyval.treeN) = new;
                         }
-#line 1256 "calc-sintaxis.tab.c" /* yacc.c:1661  */
+#line 1263 "calc-sintaxis.tab.c" /* yacc.c:1661  */
     break;
 
   case 6:
-#line 47 "calc-sintaxis.y" /* yacc.c:1661  */
+#line 54 "calc-sintaxis.y" /* yacc.c:1661  */
     {
                           Node *new = newNode(2,"+",NULL);
                           insertTree(new,(yyvsp[-2].treeN),(yyvsp[0].treeN));
                           (yyval.treeN) = new;
                           // printf("%s,%d,%d,%d\n","Operador Suma\n",$1,$3,$1+$3);
                         }
-#line 1267 "calc-sintaxis.tab.c" /* yacc.c:1661  */
+#line 1274 "calc-sintaxis.tab.c" /* yacc.c:1661  */
     break;
 
   case 7:
-#line 53 "calc-sintaxis.y" /* yacc.c:1661  */
+#line 60 "calc-sintaxis.y" /* yacc.c:1661  */
     {
                           Node *new = newNode(2,"*",NULL);
                           insertTree(new,(yyvsp[-2].treeN),(yyvsp[0].treeN));
                           (yyval.treeN) = new;
                           // printf("%s,%d,%d,%d\n","Operador Producto\n",$1,$3,$1*$3);
                         }
-#line 1278 "calc-sintaxis.tab.c" /* yacc.c:1661  */
+#line 1285 "calc-sintaxis.tab.c" /* yacc.c:1661  */
     break;
 
   case 8:
-#line 59 "calc-sintaxis.y" /* yacc.c:1661  */
+#line 66 "calc-sintaxis.y" /* yacc.c:1661  */
     { (yyval.treeN) =  (yyvsp[-1].treeN); }
-#line 1284 "calc-sintaxis.tab.c" /* yacc.c:1661  */
+#line 1291 "calc-sintaxis.tab.c" /* yacc.c:1661  */
     break;
 
   case 9:
-#line 62 "calc-sintaxis.y" /* yacc.c:1661  */
+#line 69 "calc-sintaxis.y" /* yacc.c:1661  */
     {
                             Node *dato = newNode(0,(yyvsp[-2].s),(yyvsp[0].i));
                             list = newList(list,dato);
                           }
-#line 1293 "calc-sintaxis.tab.c" /* yacc.c:1661  */
+#line 1300 "calc-sintaxis.tab.c" /* yacc.c:1661  */
     break;
 
   case 10:
-#line 67 "calc-sintaxis.y" /* yacc.c:1661  */
+#line 74 "calc-sintaxis.y" /* yacc.c:1661  */
     {
                                         Node *dato = newNode(0,(yyvsp[-2].s),(yyvsp[0].i));
                                         insertLast(list,dato);
                                       }
-#line 1302 "calc-sintaxis.tab.c" /* yacc.c:1661  */
+#line 1309 "calc-sintaxis.tab.c" /* yacc.c:1661  */
     break;
 
 
-#line 1306 "calc-sintaxis.tab.c" /* yacc.c:1661  */
+#line 1313 "calc-sintaxis.tab.c" /* yacc.c:1661  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1530,5 +1537,23 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 74 "calc-sintaxis.y" /* yacc.c:1906  */
+#line 81 "calc-sintaxis.y" /* yacc.c:1906  */
 
+int valueExpr(Node *root){
+    if(root->tag == 1){
+        return root->value;
+    }
+    if(root->tag == 2){
+        int cond1 = strcmp(root->id,"+");
+        if(cond1 == 0){
+            return valueExpr(root->left) + valueExpr(root->right);
+        }
+        int cond2 = strcmp(root->id,"*");
+        if(cond2 == 0){
+            return valueExpr(root->left) * valueExpr(root->right);
+        }
+    }
+    if(root->tag == 0){
+        return root->value;
+    }
+}
