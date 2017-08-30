@@ -46,7 +46,10 @@ expr: INT               {
                         }
     | ID                {
                             Node *new = findElem(list, $1);
-                            printf("Buscado: %s\n", new->id);
+                            if(new != NULL)
+                                printf("Buscado: %s\n", new->id);
+                            else
+                                printf(" %s%s%s\n", "Variable ",$1," no declarada.");
                             $$ = new;
                         }
 
