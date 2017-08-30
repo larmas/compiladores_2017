@@ -763,41 +763,49 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 19 "calc-lexico.l"
-{ yylval.i = atoi(yytext);
-                                printf("INT : %d\n",atoi(yytext));
-                                return INT;}
+{
+                            yylval.i = atoi(yytext);
+                            printf("INT : %d\n",atoi(yytext));
+                            return INT;
+                        }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 23 "calc-lexico.l"
-{return VAR;}
+#line 25 "calc-lexico.l"
+{
+                            return VAR;
+                        }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 25 "calc-lexico.l"
-{ yylval.s=(char *) malloc(sizeof(yytext)*yyleng);
+#line 29 "calc-lexico.l"
+{
+                                yylval.s=(char *) malloc(sizeof(yytext)*yyleng);
                                 strcpy(yylval.s,yytext);
                                 printf("ID : %s\n",yytext);
-                                return ID;}
+                                return ID;
+                            }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 30 "calc-lexico.l"
-{  printf("%s\n",yytext);
-                                  return *yytext;}
+#line 36 "calc-lexico.l"
+{  
+                                printf("%s\n",yytext);
+                                return *yytext;
+                            }
 	YY_BREAK
 case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
-#line 34 "calc-lexico.l"
+#line 42 "calc-lexico.l"
 ; /* ignore all the rest */
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 36 "calc-lexico.l"
+#line 44 "calc-lexico.l"
 ECHO;
 	YY_BREAK
-#line 801 "lex.yy.c"
+#line 809 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1806,7 +1814,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 36 "calc-lexico.l"
+#line 44 "calc-lexico.l"
 
 
 

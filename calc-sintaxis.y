@@ -22,59 +22,58 @@ List *list;
 %%
 
 prog: expr ';'          {
-                          printf("%s\n", "Recorrido....");
-                          dfs($1);
-                          printf("\n");
-                          printf("%s\n\n", "Evaluar....");
-                          int result = valueExpr($1);
-                          printf("%i\n", result);
+                            printf("%s\n", "Recorrido....");
+                            dfs($1);
+                            printf("\n");
+                            printf("%s\n\n", "Evaluar....");
+                            int result = valueExpr($1);
+                            printf("%i\n", result);
                         }
 
     | variable ';' expr ';' {
-                              printf("%s\n", "Recorrido....");
-                              dfs($3);
-                              printf("\n");
-                              printf("%s\n", "Evaluar....");
-                              int result = valueExpr($3);
-                              printf("%i\n", result);
+                                printf("%s\n", "Recorrido....");
+                                dfs($3);
+                                printf("\n");
+                                printf("%s\n", "Evaluar....");
+                                int result = valueExpr($3);
+                                printf("%i\n", result);
                             }
     ;
 
 expr: INT               {
-                          Node *new = newNode(1,NULL,$1);
-                          $$ = new;
-                          //printf("%s%d\n","Constante entera:",$1);
+                            Node *new = newNode(1,NULL,$1);
+                            $$ = new;
                         }
     | ID                {
-                          Node *new = findElem(list, $1);
-                          printf("Buscado: %s\n", new->id);
-                          $$ = new;
+                            Node *new = findElem(list, $1);
+                            printf("Buscado: %s\n", new->id);
+                            $$ = new;
                         }
 
     | expr '+' expr     {
-                          Node *new = newNode(2,"+",NULL);
-                          insertTree(new,$1,$3);
-                          $$ = new;
-                          // printf("%s,%d,%d,%d\n","Operador Suma\n",$1,$3,$1+$3);
+                            Node *new = newNode(2,"+",NULL);
+                            insertTree(new,$1,$3);
+                            $$ = new;
                         }
     | expr '*' expr     {
-                          Node *new = newNode(2,"*",NULL);
-                          insertTree(new,$1,$3);
-                          $$ = new;
-                          // printf("%s,%d,%d,%d\n","Operador Producto\n",$1,$3,$1*$3);
+                            Node *new = newNode(2,"*",NULL);
+                            insertTree(new,$1,$3);
+                            $$ = new;
                         }
-    | '(' expr ')'              { $$ =  $2; }
+    | '(' expr ')'      {
+                            $$ =  $2;
+                        }
     ;
 
-variable: VAR ID '=' INT {
-                            Node *dato = newNode(0,$2,$4);
-                            list = newList(list,dato);
-                          }
+variable: VAR ID '=' INT    {
+                                Node *dato = newNode(0,$2,$4);
+                                list = newList(list,dato);
+                            }
 
-        | variable ';' VAR ID '=' INT {
-                                        Node *dato = newNode(0,$4,$6);
-                                        insertLast(list,dato);
-                                      }
+        | variable ';' VAR ID '=' INT   {
+                                            Node *dato = newNode(0,$4,$6);
+                                            insertLast(list,dato);
+                                        }
 
    ;
 

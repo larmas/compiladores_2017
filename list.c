@@ -21,110 +21,105 @@ List *deleteElem(List *l, char _id[]);
 
 // Inicializa la lista con un nodo
 List *newList(List *l, Node *p) {
-  l = (List *) malloc(sizeof(List));
-  l->node = p;
-  l->next = NULL;
-  return l;
+    l = (List *) malloc(sizeof(List));
+    l->node = p;
+    l->next = NULL;
+    return l;
 }
 
 
 // Inserta el dato al final de la lista
 void insertLast(List *l, Node *dato) {
-  List *p,*q;
-  q = (List *) malloc(sizeof(List)); // crea un nuevo nodo
-  q->node = dato; // copiar los datos
-  q->next = NULL;
-  /*if (l == NULL)
-    return q;*/
-  // la lista argumento no es vacía. Situarse en el último
-  p = l;
-  while (p->next != NULL)
-    p = p->next;
-  p->next = q;
+    List *p,*q;
+    q = (List *) malloc(sizeof(List));
+    q->node = dato;
+    q->next = NULL;
+    p = l;
+    while (p->next != NULL)
+        p = p->next;
+    p->next = q;
 }
 
 
 // Inserta el dato al comienzo de la lista
 void insertFirst(List **l, Node *dato) {
-  List *q;
-  q = (List *) malloc(sizeof(List)); // crea un nuevo nodo
-  q->node = dato; // copiar los datos
-  q->next = *l;
-  *l = q;
+    List *q;
+    q = (List *) malloc(sizeof(List));
+    q->node = dato;
+    q->next = *l;
+    *l = q;
 }
 
 
 // Retorna el elemento si fue en contrado en la lista (busca por id)
 Node *findElem(List *l, char _id[]) {
-  int cond;
-  if (l == NULL){ // no hay nada que borrar
+    int cond;
+    if (l == NULL){
+        return NULL;
+    }
+    cond = strcmp(l->node->id,_id);
+    if (cond == 0) {
+  	    return (l->node);
+    }else{
+        return ( findElem(l->next,_id) );
+    }
     return NULL;
-  }
-  cond = strcmp(l->node->id,_id); // compara el dato
-  if (cond == 0) { // encontrado!
-  	return (l->node);
-  } else{ // no encontrado
-
-    return ( findElem(l->next,_id) ); // avanzo
-  }
-  return NULL;
 }
 
 
 // Elimina el elemento si se encuentra en la lista
 List *deleteElem(List *l, char _id[]) {
-  int cond;
-  if (l == NULL) // no hay nada que borrar
+    int cond;
+    if (l == NULL)
+        return l;
+    cond = strcmp(l->node->id,_id);
+    if (cond == 0) {
+        List *q;
+        q = l->next;
+        free(l);
+        l = q;
+        return l;
+    }else
+        l->next = deleteElem(l->next,_id);
     return l;
-
-  cond = strcmp(l->node->id,_id);
-  if (cond == 0) { // encontrado!
-    List *q;
-    q = l->next;
-    free(l); // libera la memoria y hemos perdido el enlace, por eso se guarda en q
-    l = q; // restaurar p al nuevo valor
-    return l;
-  } else // no encontrado
-    l->next = deleteElem(l->next,_id); // avanzo
-  return l;
 }
 
 
 // Devuelve la longitud de una lista
 int longList(List *l) {
-  List *p;
-  int n;
-  n = 0;
-  p = l;
-  while (p != NULL) {
-    ++n;
-    p = p->next;
-  }
-  return n;
+    List *p;
+    int n;
+    n = 0;
+    p = l;
+    while (p != NULL) {
+        ++n;
+        p = p->next;
+    }
+    return n;
 }
 
 
 // Anula una lista liberando la memoria
 void deleteList(List **l) {
-  List *q;
-  while (*l != NULL) {
-    q = (*l)->next;
-    free(*l);
-    *l = q;
-  }
+    List *q;
+    while (*l != NULL) {
+        q = (*l)->next;
+        free(*l);
+        *l = q;
+    }
 }
 
 
 // Imprimir la lista
 void showList(List *l) {
-  List *p;
-  p = l;
-  while (p != NULL) {
-    printf("tag:%i\n",p->node->tag);
-    printf("id:%s\n",p->node->id);
-    printf("value: %i\n\n",p->node->value);
-    p = p->next;
-  }
+    List *p;
+    p = l;
+    while (p != NULL) {
+        printf("tag:%i\n",p->node->tag);
+        printf("id:%s\n",p->node->id);
+        printf("value: %i\n\n",p->node->value);
+        p = p->next;
+    }
 }
 
   /*int main(int argc, char const *argv[]) {
